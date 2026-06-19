@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Computing Departments — CS, Software, IT, AI & Data Science</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4f5f7; --card:#ffffff;
+    --ink:#16202e; --ink-soft:#56657a; --muted:#8a99a8;
+    --line:#e6e9ee; --line-soft:#eef1f5;
+    --orange:#f97316; --orange-soft:#fdf0e8; --orange-line:#f6d9c4;
+    --blue:#3b82f6; --blue-soft:#eef3fb; --blue-line:#d6e3f7; --blue-hero:#62a3e4;
+    --cyan:#22b8cf;
+    --navy-1:#0d1828; --navy-2:#17304e;
+    --display:'Space Grotesk',sans-serif;
+    --mono:'Space Mono',monospace;
+    --body:'Inter',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--body);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.55}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--orange);color:#fff}
+
+  /* ---------- top bar ---------- */
+  header{position:sticky;top:0;z-index:50;background:rgba(13,24,40,.92);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.06)}
+  .bar{max-width:1180px;margin:0 auto;padding:16px 28px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+  .brand{display:flex;align-items:center;gap:11px;color:#fff}
+  .brand svg{width:26px;height:26px;flex:none}
+  .brand b{font-family:var(--display);font-weight:700;letter-spacing:.04em;font-size:1.02rem}
+  nav{display:flex;gap:6px;flex-wrap:wrap}
+  .tab{font-family:var(--mono);font-size:.74rem;letter-spacing:.02em;color:#9fb0c4;background:transparent;border:1px solid transparent;border-radius:9px;padding:9px 13px;cursor:pointer;transition:.18s;white-space:nowrap}
+  .tab:hover{color:#fff;background:rgba(255,255,255,.06)}
+  .tab[aria-selected="true"]{color:#fff;background:rgba(249,115,22,.16);border-color:rgba(249,115,22,.45)}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;overflow:hidden;background:linear-gradient(140deg,#0c1626 0%,#142b46 60%,#173354 100%);color:#fff;padding:74px 28px 86px;text-align:center}
+  .hero::before{content:"";position:absolute;inset:0;background:
+     repeating-linear-gradient(58deg,rgba(255,255,255,.05) 0 1px,transparent 1px 46px),
+     repeating-linear-gradient(122deg,rgba(255,255,255,.04) 0 1px,transparent 1px 60px);
+     -webkit-mask-image:radial-gradient(120% 80% at 80% 10%,#000,transparent 75%);mask-image:radial-gradient(120% 80% at 80% 10%,#000,transparent 75%)}
+  .hero::after{content:"";position:absolute;inset:0;background:radial-gradient(90% 120% at 50% -10%,transparent 40%,rgba(8,15,26,.55) 100%)}
+  .hero-in{position:relative;z-index:2;max-width:880px;margin:0 auto}
+  .pill{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:.74rem;letter-spacing:.04em;color:#cdd9e6;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.04);border-radius:999px;padding:8px 16px;margin-bottom:26px}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--orange);box-shadow:0 0 0 4px rgba(249,115,22,.2)}
+  .hero h1{font-family:var(--display);font-weight:700;font-size:clamp(2.3rem,6vw,4.05rem);line-height:1.02;letter-spacing:-.02em}
+  .hero h1 .accent{color:var(--blue-hero)}
+  .hero p{margin:22px auto 0;max-width:620px;color:#b7c4d4;font-size:1.06rem}
+
+  /* ---------- search controls ---------- */
+  .controls{position:relative;z-index:2;max-width:760px;margin:34px auto 0}
+  .searchbox{display:flex;align-items:center;gap:12px;background:#fff;border-radius:14px;padding:13px 18px;box-shadow:0 18px 40px -18px rgba(4,12,24,.6)}
+  .searchbox svg{width:19px;height:19px;color:var(--muted);flex:none}
+  .searchbox input{flex:1;border:none;outline:none;font-family:var(--body);font-size:1rem;color:var(--ink);background:transparent}
+  .searchbox input::placeholder{color:var(--muted)}
+  .searchbox .clear{font-family:var(--mono);font-size:.7rem;color:var(--muted);background:var(--bg);border:none;border-radius:7px;padding:6px 9px;cursor:pointer;display:none}
+  .searchbox .clear.on{display:block}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:16px}
+  .chip{font-family:var(--mono);font-size:.72rem;letter-spacing:.02em;color:#cdd9e6;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.05);border-radius:999px;padding:7px 13px;cursor:pointer;transition:.16s}
+  .chip:hover{border-color:rgba(255,255,255,.4);color:#fff}
+  .chip[aria-pressed="true"]{background:#fff;color:var(--navy-1);border-color:#fff;font-weight:700}
+
+  /* ---------- section ---------- */
+  main{max-width:1180px;margin:0 auto;padding:60px 28px 90px}
+  .eyebrow{font-family:var(--mono);font-size:.78rem;letter-spacing:.22em;color:var(--orange);text-transform:uppercase;text-align:center}
+  .sec-title{font-family:var(--display);font-weight:700;font-size:clamp(1.9rem,4vw,2.9rem);text-align:center;letter-spacing:-.02em;margin-top:12px}
+  .sec-sub{text-align:center;color:var(--ink-soft);max-width:560px;margin:14px auto 0}
+  .count{font-family:var(--mono);font-size:.74rem;color:var(--muted);text-align:center;margin-top:18px;letter-spacing:.02em}
+
+  /* note banner */
+  .note{display:flex;gap:13px;align-items:flex-start;max-width:760px;margin:26px auto 0;background:var(--blue-soft);border:1px solid var(--blue-line);border-radius:14px;padding:15px 18px}
+  .note svg{width:19px;height:19px;color:var(--blue);flex:none;margin-top:2px}
+  .note p{font-size:.9rem;color:#3f5168;margin:0}
+
+  /* ---------- grid + cards ---------- */
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:40px}
+  .uni{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px 26px 22px;display:flex;flex-direction:column;transition:.2s;position:relative;overflow:hidden}
+  .uni:hover{border-color:var(--orange-line);box-shadow:0 18px 36px -24px rgba(20,40,70,.4);transform:translateY(-2px)}
+  .uni-top{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+  .rank{font-family:var(--mono);font-weight:700;font-size:1.05rem;color:#fff;background:var(--navy-1);border-radius:11px;min-width:50px;height:46px;display:flex;align-items:center;justify-content:center;padding:0 8px;flex:none}
+  .uni:nth-child(3n+1) .rank{background:var(--orange)}
+  .uni:nth-child(3n+2) .rank{background:var(--blue)}
+  .rank-meta{display:flex;flex-direction:column;gap:3px;min-width:0}
+  .rank-meta .lbl{font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;color:var(--muted);text-transform:uppercase}
+  .uni h3{font-family:var(--display);font-weight:600;font-size:1.18rem;line-height:1.2;letter-spacing:-.01em}
+  .loc{font-family:var(--mono);font-size:.74rem;color:var(--ink-soft);margin-bottom:16px;display:flex;align-items:center;gap:7px}
+  .loc::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--orange)}
+
+  .deps{list-style:none;display:flex;flex-direction:column;gap:9px;margin-top:auto}
+  .dep{display:flex;align-items:center;gap:12px;border:1px solid var(--line-soft);border-radius:11px;padding:11px 13px;transition:.16s;background:#fcfdfe}
+  .dep:hover{border-color:var(--blue-line);background:var(--blue-soft)}
+  .dep .body{min-width:0;flex:1}
+  .dep .name{font-weight:600;font-size:.92rem;color:var(--ink);display:block;line-height:1.25}
+  .dep .cat{font-family:var(--mono);font-size:.64rem;letter-spacing:.04em;color:var(--ink-soft);text-transform:uppercase;margin-top:2px;display:inline-block}
+  .dep .arrow{flex:none;width:26px;height:26px;border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--muted);transition:.16s}
+  .dep:hover .arrow{background:var(--blue);color:#fff;transform:translateX(2px)}
+  .dep .arrow svg{width:14px;height:14px}
+  .tagcat{flex:none;font-family:var(--mono);font-size:.6rem;font-weight:700;letter-spacing:.05em;color:#fff;border-radius:6px;padding:4px 7px;align-self:flex-start}
+  .c-cs{background:#1f6feb}.c-sw{background:#7c3aed}.c-it{background:#0891b2}
+  .c-comp{background:#0d9488}.c-ai{background:#f97316}.c-ds{background:#db2777}.c-rel{background:#64748b}
+
+  .empty{grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--ink-soft)}
+  .empty b{font-family:var(--display);font-size:1.2rem;color:var(--ink);display:block;margin-bottom:8px}
+  .empty span{font-family:var(--mono);font-size:.8rem;color:var(--muted)}
+
+  /* ---------- footer ---------- */
+  footer{border-top:1px solid var(--line);background:#fff}
+  .foot{max-width:1180px;margin:0 auto;padding:34px 28px;display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center}
+  .foot p{font-family:var(--mono);font-size:.72rem;color:var(--muted);letter-spacing:.02em;line-height:1.7}
+  .foot .src{max-width:560px}
+
+  @media(max-width:760px){
+    .grid{grid-template-columns:1fr;gap:16px}
+    .bar{padding:13px 18px}
+    nav{gap:4px}
+    .tab{padding:8px 10px;font-size:.68rem}
+    main{padding:46px 18px 70px}
+    .hero{padding:54px 18px 64px}
+    .brand b{font-size:.92rem}
+  }
+  @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="bar">
+    <a class="brand" href="#top" aria-label="Computing Departments home">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2 4 5v6c0 5 3.4 8.6 8 11 4.6-2.4 8-6 8-11V5l-8-3Z" stroke="#f97316" stroke-width="1.6" stroke-linejoin="round"/>
+        <path d="M8.5 12.2l2.4 2.4 4.6-4.8" stroke="#62a3e4" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <b>CS&nbsp;DEPARTMENTS</b>
+    </a>
+    <nav id="tabs" role="tablist" aria-label="Ranking region">
+      <button class="tab" role="tab" data-tab="global" aria-selected="true">Global Top 20</button>
+      <button class="tab" role="tab" data-tab="us" aria-selected="false">US Top 20</button>
+      <button class="tab" role="tab" data-tab="bd" aria-selected="false">Bangladesh Top 20</button>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="hero-in">
+    <span class="pill"><span class="dot"></span> QS World University Rankings 2026</span>
+    <h1>CS <span class="accent">Departments</span></h1>
+    <p>Find the CS, Software Engineering, IT, Computing, AI and Data Science departments at the world's top-ranked universities — each linked to its official page.</p>
+
+    <div class="controls">
+      <div class="searchbox">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="m20 20-3.2-3.2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <input id="search" type="search" placeholder="Search a university or department…" aria-label="Search universities or departments" autocomplete="off">
+        <button class="clear" id="clear" aria-label="Clear search">CLEAR</button>
+      </div>
+      <div class="chips" id="chips" role="group" aria-label="Filter by department type">
+        <button class="chip" data-cat="all" aria-pressed="true">All</button>
+        <button class="chip" data-cat="CS" aria-pressed="false">Computer Science</button>
+        <button class="chip" data-cat="Software" aria-pressed="false">Software</button>
+        <button class="chip" data-cat="IT" aria-pressed="false">IT</button>
+        <button class="chip" data-cat="Computing" aria-pressed="false">Computing</button>
+        <button class="chip" data-cat="AI" aria-pressed="false">AI</button>
+        <button class="chip" data-cat="Data Science" aria-pressed="false">Data Science</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main>
+  <p class="eyebrow" id="secEyebrow">Global Ranking</p>
+  <h2 class="sec-title" id="secTitle">Global Top 20 Universities</h2>
+  <p class="sec-sub" id="secSub">Ranked by the QS World University Rankings 2026, with their computing-related departments.</p>
+  <div id="noteWrap"></div>
+  <p class="count" id="count"></p>
+  <div class="grid" id="grid"></div>
+</main>
+
+<footer>
+  <div class="foot">
+    <p>COMPUTING DEPARTMENTS · QS WORLD UNIVERSITY RANKINGS 2026</p>
+    <p class="src">Department links point to official university pages and were compiled from public sources — verify each before relying on it. Bracketed positions (e.g. 1201–1400) are QS rank bands, where universities share a tier rather than a single number.</p>
+  </div>
+</footer>
+
+<script>
+/* ---------- university dictionary (depts: name, cat, url) ---------- */
+const U = {
+  /* GLOBAL / US shared */
+  mit:{name:"Massachusetts Institute of Technology (MIT)",loc:"United States · Cambridge, MA",d:[
+    {n:"Electrical Engineering & Computer Science (EECS)",c:"CS",u:"https://www.eecs.mit.edu/"},
+    {n:"Computer Science & Artificial Intelligence Lab (CSAIL)",c:"AI",u:"https://www.csail.mit.edu/"},
+    {n:"Schwarzman College of Computing",c:"Computing",u:"https://computing.mit.edu/"},
+    {n:"Institute for Data, Systems, and Society (IDSS)",c:"Data Science",u:"https://idss.mit.edu/"}]},
+  imperial:{name:"Imperial College London",loc:"United Kingdom · London",d:[
+    {n:"Department of Computing",c:"Computing",u:"https://www.imperial.ac.uk/computing/"}]},
+  stanford:{name:"Stanford University",loc:"United States · Stanford, CA",d:[
+    {n:"Computer Science Department",c:"CS",u:"https://cs.stanford.edu/"},
+    {n:"Institute for Human-Centered AI (HAI)",c:"AI",u:"https://hai.stanford.edu/"},
+    {n:"Data Science",c:"Data Science",u:"https://datascience.stanford.edu/"}]},
+  oxford:{name:"University of Oxford",loc:"United Kingdom · Oxford",d:[
+    {n:"Department of Computer Science",c:"CS",u:"https://www.cs.ox.ac.uk/"}]},
+  harvard:{name:"Harvard University",loc:"United States · Cambridge, MA",d:[
+    {n:"Computer Science (SEAS)",c:"CS",u:"https://www.seas.harvard.edu/computer-science"},
+    {n:"Harvard Data Science Initiative",c:"Data Science",u:"https://datascience.harvard.edu/"}]},
+  cambridge:{name:"University of Cambridge",loc:"United Kingdom · Cambridge",d:[
+    {n:"Department of Computer Science and Technology",c:"CS",u:"https://www.cst.cam.ac.uk/"}]},
+  eth:{name:"ETH Zurich",loc:"Switzerland · Zurich",d:[
+    {n:"Department of Computer Science (D-INFK)",c:"CS",u:"https://inf.ethz.ch/"},
+    {n:"ETH AI Center",c:"AI",u:"https://ai.ethz.ch/"}]},
+  nus:{name:"National University of Singapore (NUS)",loc:"Singapore",d:[
+    {n:"School of Computing",c:"Computing",u:"https://www.comp.nus.edu.sg/"}]},
+  ucl:{name:"University College London (UCL)",loc:"United Kingdom · London",d:[
+    {n:"Department of Computer Science",c:"CS",u:"https://www.ucl.ac.uk/computer-science/"}]},
+  caltech:{name:"California Institute of Technology (Caltech)",loc:"United States · Pasadena, CA",d:[
+    {n:"Computing + Mathematical Sciences (CMS)",c:"Computing",u:"https://www.cms.caltech.edu/"}]},
+  hku:{name:"The University of Hong Kong",loc:"Hong Kong SAR",d:[
+    {n:"Department of Computer Science",c:"CS",u:"https://www.cs.hku.hk/"}]},
+  ntu:{name:"Nanyang Technological University (NTU)",loc:"Singapore",d:[
+    {n:"College of Computing and Data Science",c:"Computing",u:"https://www.ntu.edu.sg/computing"}]},
+  uchicago:{name:"University of Chicago",loc:"United States · Chicago, IL",d:[
+    {n:"Department of Computer Science",c:"CS",u:"https://cs.uchicago.edu/"},
+    {n:"Data Science Institute",c:"Data Science",u:"https://datascience.uchicago.edu/"}]},
+  peking:{name:"Peking University",loc:"China (Mainland) · Beijing",d:[
+    {n:"School of Computer Science",c:"CS",u:"https://cs.pku.edu.cn/English/"},
+    {n:"School of Intelligence Science and Technology",c:"AI",u:"https://www.cis.pku.edu.cn/"}]},
+  upenn:{name:"University of Pennsylvania",loc:"United States · Philadelphia, PA",d:[
+    {n:"Computer and Information Science (CIS)",c:"CS",u:"https://www.cis.upenn.edu/"}]},
+  cornell:{name:"Cornell University",loc:"United States · Ithaca, NY",d:[
+    {n:"Department of Computer Science",c:"CS",u:"https://www.cs.cornell.edu/"},
+    {n:"Cornell Bowers College of Computing & Information Science",c:"Computing",u:"https://cis.cornell.edu/"}]},
+  tsinghua:{name:"Tsinghua University",loc:"China (Mainland) · Beijing",d:[
+    {n:"Department of Computer Science and Technology",c:"CS",u:"https://www.cs.tsinghua.edu.cn/csen/"}]},
+  berkeley:{name:"University of California, Berkeley",loc:"United States · Berkeley, CA",d:[
+    {n:"Electrical Engineering & Computer Sciences (EECS)",c:"CS",u:"https://eecs.berkeley.edu/"},
+    {n:"Computing, Data Science & Society (CDSS)",c:"Data Science",u:"https://cdss.berkeley.edu/"}]},
+  melbourne:{name:"The University of Melbourne",loc:"Australia · Melbourne",d:[
+    {n:"School of Computing and Information Systems",c:"Computing",u:"https://cis.unimelb.edu.au/"}]},
+  unsw:{name:"UNSW Sydney",loc:"Australia · Sydney",d:[
+    {n:"School of Computer Science and Engineering",c:"CS",u:"https://www.unsw.edu.au/engineering/our-schools/computer-science-and-engineering"}]},
+  yale:{name:"Yale University",loc:"United States · New Haven, CT",d:[
+    {n:"Department of Computer Science",c:"CS",u:"https://cpsc.yale.edu/"}]},
+  jhu:{name:"Johns Hopkins University",loc:"United States · Baltimore, MD",d:[
+    {n:"Department of Computer Science",c:"CS",u:"https://www.cs.jhu.edu/"},
+    {n:"Data Science and AI Institute",c:"AI",u:"https://ai.jhu.edu/"}]},
+  princeton:{name:"Princeton University",loc:"United States · Princeton, NJ",d:[
+    {n:"Department of Computer Science",c:"CS",u:"https://www.cs.princeton.edu/"}]},
+  columbia:{name:"Columbia University",loc:"United States · New York, NY",d:[
+    {n:"Department of Computer Science",c:"CS",u:"https://www.cs.columbia.edu/"},
+    {n:"Data Science Institute",c:"Data Science",u:"https://datascience.columbia.edu/"}]},
+  northwestern:{name:"Northwestern University",loc:"United States · Evanston, IL",d:[
+    {n:"Computer Science (McCormick)",c:"CS",u:"https://www.mccormick.northwestern.edu/computer-science/"}]},
+  umich:{name:"University of Michigan–Ann Arbor",loc:"United States · Ann Arbor, MI",d:[
+    {n:"Computer Science and Engineering (CSE)",c:"CS",u:"https://cse.engin.umich.edu/"},
+    {n:"School of Information",c:"IT",u:"https://www.si.umich.edu/"}]},
+  ucla:{name:"University of California, Los Angeles (UCLA)",loc:"United States · Los Angeles, CA",d:[
+    {n:"Computer Science Department",c:"CS",u:"https://www.cs.ucla.edu/"}]},
+  cmu:{name:"Carnegie Mellon University",loc:"United States · Pittsburgh, PA",d:[
+    {n:"School of Computer Science",c:"CS",u:"https://www.cs.cmu.edu/"},
+    {n:"Machine Learning Department",c:"AI",u:"https://www.ml.cmu.edu/"},
+    {n:"Software & Societal Systems (Software Engineering)",c:"Software",u:"https://s3d.cmu.edu/"}]},
+  nyu:{name:"New York University (NYU)",loc:"United States · New York, NY",d:[
+    {n:"Courant — Department of Computer Science",c:"CS",u:"https://cs.nyu.edu/"},
+    {n:"Center for Data Science",c:"Data Science",u:"https://cds.nyu.edu/"}]},
+  duke:{name:"Duke University",loc:"United States · Durham, NC",d:[
+    {n:"Department of Computer Science",c:"CS",u:"https://cs.duke.edu/"}]},
+  ucsd:{name:"University of California, San Diego (UCSD)",loc:"United States · San Diego, CA",d:[
+    {n:"Computer Science and Engineering (CSE)",c:"CS",u:"https://cse.ucsd.edu/"},
+    {n:"Halıcıoğlu Data Science Institute",c:"Data Science",u:"https://datascience.ucsd.edu/"}]},
+  utaustin:{name:"The University of Texas at Austin",loc:"United States · Austin, TX",d:[
+    {n:"Department of Computer Science",c:"CS",u:"https://www.cs.utexas.edu/"}]},
+
+  /* BANGLADESH */
+  du:{name:"University of Dhaka (DU)",loc:"Bangladesh · Dhaka",d:[
+    {n:"Department of Computer Science and Engineering",c:"CS",u:"https://www.du.ac.bd/academic/department_item/CSE"},
+    {n:"Institute of Information Technology (IIT)",c:"IT",u:"https://iit.du.ac.bd/"},
+    {n:"Robotics and Mechatronics Engineering",c:"related",u:"https://www.du.ac.bd/academic/department_item/RME"}]},
+  buet:{name:"Bangladesh University of Engineering & Technology (BUET)",loc:"Bangladesh · Dhaka",d:[
+    {n:"Department of Computer Science and Engineering",c:"CS",u:"https://cse.buet.ac.bd/"}]},
+  nsu:{name:"North South University (NSU)",loc:"Bangladesh · Dhaka",d:[
+    {n:"Department of Electrical & Computer Engineering",c:"CS",u:"http://ece.northsouth.edu/"}]},
+  daffodil:{name:"Daffodil International University",loc:"Bangladesh · Dhaka",d:[
+    {n:"Department of Computer Science and Engineering",c:"CS",u:"https://daffodilvarsity.edu.bd/department/cse"},
+    {n:"Department of Software Engineering",c:"Software",u:"https://daffodilvarsity.edu.bd/department/swe"},
+    {n:"Department of Computing & Information System",c:"IT",u:"https://daffodilvarsity.edu.bd/department/cis"}]},
+  bracu:{name:"BRAC University",loc:"Bangladesh · Dhaka",d:[
+    {n:"Department of Computer Science and Engineering",c:"CS",u:"https://cse.sds.bracu.ac.bd/"}]},
+  iut:{name:"Islamic University of Technology (IUT)",loc:"Bangladesh · Gazipur",d:[
+    {n:"Department of Computer Science and Engineering",c:"CS",u:"https://cse.iutoic-dhaka.edu/"}]},
+  ju:{name:"Jahangirnagar University (JU)",loc:"Bangladesh · Savar",d:[
+    {n:"Department of Computer Science and Engineering",c:"CS",u:"https://juniv.edu/department/cse"},
+    {n:"Institute of Information Technology (IIT)",c:"IT",u:"https://juniv.edu/institute/iit"}]},
+  ru:{name:"University of Rajshahi",loc:"Bangladesh · Rajshahi",d:[
+    {n:"Department of Computer Science and Engineering",c:"CS",u:"https://www.ru.ac.bd/cse/"},
+    {n:"Institute of Information & Communication Technology",c:"IT",u:"https://www.ru.ac.bd/iict/"}]},
+  aiub:{name:"American International University-Bangladesh (AIUB)",loc:"Bangladesh · Dhaka",d:[
+    {n:"Department of Computer Science",c:"CS",u:"https://www.aiub.edu/faculties/fst/department-of-computer-science"}]},
+  cuet:{name:"Chittagong University of Engineering & Technology (CUET)",loc:"Bangladesh · Chattogram",d:[
+    {n:"Department of Computer Science and Engineering",c:"CS",u:"https://www.cuet.ac.bd/dept/cse"}]},
+  ewu:{name:"East West University (EWU)",loc:"Bangladesh · Dhaka",d:[
+    {n:"Department of Computer Science and Engineering",c:"CS",u:"https://www.ewubd.edu/computer-science-engineering"}]},
+  iub:{name:"Independent University, Bangladesh (IUB)",loc:"Bangladesh · Dhaka",d:[
+    {n:"Department of Computer Science and Engineering",c:"CS",u:"https://www.iub.edu.bd/academics/cse"}]},
+  ku:{name:"Khulna University",loc:"Bangladesh · Khulna",d:[
+    {n:"Computer Science and Engineering Discipline",c:"CS",u:"https://ku.ac.bd/discipline/cse"}]},
+  kuet:{name:"Khulna University of Engineering & Technology (KUET)",loc:"Bangladesh · Khulna",d:[
+    {n:"Department of Computer Science and Engineering",c:"CS",u:"https://cse.kuet.ac.bd/"}]},
+  ruet:{name:"Rajshahi University of Engineering & Technology (RUET)",loc:"Bangladesh · Rajshahi",d:[
+    {n:"Department of Computer Science and Engineering",c:"CS",u:"https://www.cse.ruet.ac.bd/"}]},
+};
+
+/* ---------- ordered lists per tab: id, rank label, sub label ---------- */
+const LISTS = {
+  global:[
+    ["mit","01","Global rank"],["imperial","02","Global rank"],["stanford","03","Global rank"],
+    ["oxford","04","Global rank"],["harvard","05","Global rank"],["cambridge","06","Global rank"],
+    ["eth","07","Global rank"],["nus","08","Global rank"],["ucl","09","Global rank"],
+    ["caltech","10","Global rank"],["hku","11","Global rank"],["ntu","12","Global rank"],
+    ["uchicago","13","Global rank"],["peking","14","Global rank"],["upenn","15","Global rank"],
+    ["cornell","16","Global rank"],["tsinghua","=17","Global rank"],["berkeley","=17","Global rank"],
+    ["melbourne","19","Global rank"],["unsw","20","Global rank"]],
+  us:[
+    ["mit","01","US · global #1"],["stanford","02","US · global #3"],["harvard","03","US · global #5"],
+    ["caltech","04","US · global #10"],["uchicago","05","US · global #13"],["upenn","06","US · global #15"],
+    ["cornell","07","US · global #16"],["berkeley","08","US · global #=17"],["yale","09","US · global #21"],
+    ["jhu","10","US · global #24"],["princeton","11","US · global #=25"],["columbia","12","US · global #=38"],
+    ["northwestern","13","US · global #=42"],["umich","14","US · global #45"],["ucla","15","US · global #46"],
+    ["cmu","16","US · global #52"],["nyu","17","US · global #55"],["duke","18","US · global #62"],
+    ["ucsd","19","US · global #66"],["utaustin","20","US · global #68"]],
+  bd:[
+    ["du","584","Global rank"],["buet","761","Band 761–770"],["nsu","951","Band 951–1000"],
+    ["daffodil","1001","Band 1001–1200"],["bracu","1201","Band 1201–1400"],["iut","1201","Band 1201–1400"],
+    ["ju","1201","Band 1201–1400"],["ru","1201","Band 1201–1400"],["aiub","1401","Band 1401+"],
+    ["cuet","1401","Band 1401+"],["ewu","1401","Band 1401+"],["iub","1401","Band 1401+"],
+    ["ku","1401","Band 1401+"],["kuet","1401","Band 1401+"],["ruet","1401","Band 1401+"]],
+};
+
+const SEC = {
+  global:{eb:"Global Ranking",t:"Global Top 20 Universities",s:"Ranked by the QS World University Rankings 2026, with their computing-related departments.",note:""},
+  us:{eb:"United States",t:"US Top 20 Universities",s:"The 20 highest-placed US universities in the QS World University Rankings 2026.",note:""},
+  bd:{eb:"Bangladesh",t:"Bangladesh Universities",s:"All Bangladeshi universities ranked in the QS World University Rankings 2026.",
+      note:"QS World 2026 ranks 15 Bangladeshi universities — not 20 — so this tab shows all 15. For a full top-20, the QS Asia University Rankings 2026 includes 46 Bangladeshi institutions."}
+};
+
+const CATCLASS = {CS:"c-cs",Software:"c-sw",IT:"c-it",Computing:"c-comp",AI:"c-ai","Data Science":"c-ds",related:"c-rel"};
+const CATABBR  = {CS:"CS",Software:"SwE",IT:"IT",Computing:"COMP",AI:"AI","Data Science":"DS",related:"REL"};
+
+let state = {tab:"global", q:"", cat:"all"};
+const grid=document.getElementById('grid'), countEl=document.getElementById('count'), noteWrap=document.getElementById('noteWrap');
+const arrowSVG='<svg viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+function esc(s){return s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+
+function render(){
+  const list = LISTS[state.tab], q = state.q.trim().toLowerCase(), cat = state.cat;
+  let cards=0, deps=0;
+  let html="";
+  list.forEach(([id,rank,sub])=>{
+    const u=U[id];
+    const nameMatch = !q || u.name.toLowerCase().includes(q);
+    let depts = u.d.filter(d=>{
+      const catOk = cat==="all" || d.c===cat;
+      const qOk = !q || nameMatch || d.n.toLowerCase().includes(q) || d.c.toLowerCase().includes(q);
+      return catOk && qOk;
+    });
+    // if category filter active and none match, skip card
+    if(cat!=="all" && depts.length===0) return;
+    if(q && !nameMatch && depts.length===0) return;
+    if(depts.length===0) depts=u.d.filter(d=>cat==="all"||d.c===cat);
+    if(depts.length===0) return;
+    cards++; deps+=depts.length;
+    html+=`<article class="uni">
+      <div class="uni-top">
+        <span class="rank">${esc(rank)}</span>
+        <div class="rank-meta">
+          <span class="lbl">${esc(sub)}</span>
+          <h3>${esc(u.name)}</h3>
+        </div>
+      </div>
+      <div class="loc">${esc(u.loc)}</div>
+      <ul class="deps">
+        ${depts.map(d=>`<li><a class="dep" href="${esc(d.u)}" target="_blank" rel="noopener">
+            <span class="tagcat ${CATCLASS[d.c]}">${CATABBR[d.c]}</span>
+            <span class="body"><span class="name">${esc(d.n)}</span><span class="cat">${esc(d.c==="related"?"Related":d.c)}</span></span>
+            <span class="arrow">${arrowSVG}</span>
+          </a></li>`).join("")}
+      </ul>
+    </article>`;
+  });
+  if(cards===0){
+    html=`<div class="empty"><b>No matches</b><span>Try a different name, or reset the department filter to “All”.</span></div>`;
+  }
+  grid.innerHTML=html;
+  countEl.textContent = cards? `${cards} universit${cards===1?'y':'ies'} · ${deps} department${deps===1?'':'s'} shown` : "";
+}
+
+function setSection(){
+  const s=SEC[state.tab];
+  document.getElementById('secEyebrow').textContent=s.eb;
+  document.getElementById('secTitle').textContent=s.t;
+  document.getElementById('secSub').textContent=s.s;
+  noteWrap.innerHTML = s.note?`<div class="note"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8h.01M11 12h1v4h1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><p>${s.note}</p></div>`:"";
+}
+
+/* ---------- events ---------- */
+document.getElementById('tabs').addEventListener('click',e=>{
+  const b=e.target.closest('.tab'); if(!b) return;
+  state.tab=b.dataset.tab;
+  [...document.querySelectorAll('.tab')].forEach(t=>t.setAttribute('aria-selected',t===b));
+  setSection(); render();
+  document.getElementById('top').scrollIntoView({block:'start'});
+});
+const searchEl=document.getElementById('search'), clearEl=document.getElementById('clear');
+searchEl.addEventListener('input',()=>{state.q=searchEl.value;clearEl.classList.toggle('on',!!searchEl.value);render();});
+clearEl.addEventListener('click',()=>{searchEl.value="";state.q="";clearEl.classList.remove('on');render();searchEl.focus();});
+document.getElementById('chips').addEventListener('click',e=>{
+  const c=e.target.closest('.chip'); if(!c) return;
+  state.cat=c.dataset.cat;
+  [...document.querySelectorAll('.chip')].forEach(x=>x.setAttribute('aria-pressed',x===c));
+  render();
+});
+/* open department links straight in a new tab */
+grid.addEventListener('click',e=>{
+  const a=e.target.closest('.dep'); if(!a) return;
+  e.preventDefault();
+  window.open(a.href,'_blank','noopener');
+});
+
+setSection(); render();
+</script>
+</body>
+</html>
