@@ -146,7 +146,7 @@
 
 <section class="hero" id="top">
   <div class="hero-in">
-    <span class="pill"><span class="dot"></span> QS World University Rankings 2026</span>
+    <span class="pill"><span class="dot"></span> QS World University Rankings 2027</span>
     <h1>CS <span class="accent">Departments</span></h1>
     <p>Find the CS, Software Engineering, IT, Computing, AI and Data Science departments at the world's top-ranked universities — each linked to its official page.</p>
 
@@ -172,7 +172,7 @@
 <main>
   <p class="eyebrow" id="secEyebrow">Global Ranking</p>
   <h2 class="sec-title" id="secTitle">Global Top 20 Universities</h2>
-  <p class="sec-sub" id="secSub">Ranked by the QS World University Rankings 2026, with their computing-related departments.</p>
+  <p class="sec-sub" id="secSub">Ranked by the QS World University Rankings 2027, with their computing-related departments.</p>
   <div id="noteWrap"></div>
   <p class="count" id="count"></p>
   <div class="grid" id="grid"></div>
@@ -180,7 +180,7 @@
 
 <footer>
   <div class="foot">
-    <p>COMPUTING DEPARTMENTS · QS WORLD UNIVERSITY RANKINGS 2026</p>
+    <p>COMPUTING DEPARTMENTS · QS WORLD UNIVERSITY RANKINGS 2027</p>
     <p class="src">Department links point to official university pages and were compiled from public sources — verify each before relying on it. Bracketed positions (e.g. 1201–1400) are QS rank bands, where universities share a tier rather than a single number.</p>
   </div>
 </footer>
@@ -271,6 +271,9 @@ const U = {
     {n:"Halıcıoğlu Data Science Institute",c:"Data Science",u:"https://datascience.ucsd.edu/"}]},
   utaustin:{name:"The University of Texas at Austin",loc:"United States · Austin, TX",d:[
     {n:"Department of Computer Science",c:"CS",u:"https://www.cs.utexas.edu/"}]},
+  cuhk:{name:"The Chinese University of Hong Kong",loc:"Hong Kong SAR · Shenzhen",d:[
+    {n:"School of Engineering",c:"CS",u:"https://www.se.cuhk.edu.hk/"},
+    {n:"Department of Computer Science and Engineering",c:"CS",u:"https://www.cse.cuhk.edu.hk/"}]},
 
   /* BANGLADESH */
   du:{name:"University of Dhaka (DU)",loc:"Bangladesh · Dhaka",d:[
@@ -309,39 +312,43 @@ const U = {
     {n:"Department of Computer Science and Engineering",c:"CS",u:"https://www.kuet.ac.bd/cse"}]},
   ruet:{name:"Rajshahi University of Engineering & Technology (RUET)",loc:"Bangladesh · Rajshahi",d:[
     {n:"Department of Computer Science and Engineering",c:"CS",u:"https://www.cse.ruet.ac.bd/"}]},
+  bau:{name:"Bangladesh Agricultural University (BAU)",loc:"Bangladesh · Mymensingh",d:[
+    {n:"Department of Agricultural Statistics",c:"CS",u:"https://www.bau.edu.bd/"}]},
+  sust:{name:"Shahjalal University of Science and Technology (SUST)",loc:"Bangladesh · Sylhet",d:[
+    {n:"Department of Computer Science and Engineering",c:"CS",u:"https://cse.sust.edu.bd/"}]},
 };
 
 /* ---------- ordered lists per tab: id, rank label, sub label ---------- */
 const LISTS = {
   global:[
-    ["mit","01","Global rank"],["imperial","02","Global rank"],["stanford","03","Global rank"],
+    ["mit","01","Global rank"],["imperial","=2","Global rank"],["stanford","=2","Global rank"],
     ["oxford","04","Global rank"],["harvard","05","Global rank"],["cambridge","06","Global rank"],
-    ["eth","07","Global rank"],["nus","08","Global rank"],["ucl","09","Global rank"],
-    ["caltech","10","Global rank"],["hku","11","Global rank"],["ntu","12","Global rank"],
-    ["uchicago","13","Global rank"],["peking","14","Global rank"],["upenn","15","Global rank"],
-    ["cornell","16","Global rank"],["tsinghua","=17","Global rank"],["berkeley","=17","Global rank"],
-    ["melbourne","19","Global rank"],["unsw","20","Global rank"]],
+    ["caltech","07","Global rank"],["eth","=8","Global rank"],["ucl","=8","Global rank"],
+    ["nus","10","Global rank"],["hku","11","Global rank"],["ntu","12","Global rank"],
+    ["peking","13","Global rank"],["tsinghua","14","Global rank"],["upenn","15","Global rank"],
+    ["cornell","=16","Global rank"],["yale","=16","Global rank"],["cuhk","18","Global rank"],
+    ["unsw","19","Global rank"],["jhu","=20","Global rank"],["berkeley","=20","Global rank"]],
   us:[
-    ["mit","01","US · global #1"],["stanford","02","US · global #3"],["harvard","03","US · global #5"],
-    ["caltech","04","US · global #10"],["uchicago","05","US · global #13"],["upenn","06","US · global #15"],
-    ["cornell","07","US · global #16"],["berkeley","08","US · global #=17"],["yale","09","US · global #21"],
-    ["jhu","10","US · global #24"],["princeton","11","US · global #=25"],["columbia","12","US · global #=38"],
-    ["northwestern","13","US · global #=42"],["umich","14","US · global #45"],["ucla","15","US · global #46"],
-    ["cmu","16","US · global #52"],["nyu","17","US · global #55"],["duke","18","US · global #62"],
-    ["ucsd","19","US · global #66"],["utaustin","20","US · global #68"]],
+    ["mit","01","US · global #1"],["stanford","02","US · global #=2"],["harvard","03","US · global #5"],
+    ["caltech","04","US · global #7"],["upenn","05","US · global #15"],["cornell","06","US · global #=16"],
+    ["yale","07","US · global #=16"],["jhu","08","US · global #=20"],["berkeley","09","US · global #=20"],
+    ["uchicago","10","US · global #31"],["princeton","11","US · global #26"],["columbia","12","US · global #40"],
+    ["northwestern","13","US · global #43"],["umich","14","US · global #46"],["ucla","15","US · global #48"],
+    ["cmu","16","US · global #53"],["nyu","17","US · global #57"],["duke","18","US · global #64"],
+    ["ucsd","19","US · global #68"],["utaustin","20","US · global #70"]],
   bd:[
-    ["du","584","Global rank"],["buet","761","Band 761–770"],["nsu","951","Band 951–1000"],
-    ["daffodil","1001","Band 1001–1200"],["bracu","1201","Band 1201–1400"],["iut","1201","Band 1201–1400"],
-    ["ju","1201","Band 1201–1400"],["ru","1201","Band 1201–1400"],["aiub","1401","Band 1401+"],
-    ["cuet","1401","Band 1401+"],["ewu","1401","Band 1401+"],["iub","1401","Band 1401+"],
-    ["ku","1401","Band 1401+"],["kuet","1401","Band 1401+"],["ruet","1401","Band 1401+"]],
+    ["du","600","Global rank"],["buet","711-720","Band 711–720"],["nsu","901-950","Band 901–950"],
+    ["daffodil","1001+","Band 1001–1200"],["bracu","1001+","Band 1001+"],["iut","1001+","Band 1001+"],
+    ["ju","1001+","Band 1001+"],["ru","1001+","Band 1001+"],["aiub","1001+","Band 1001+"],
+    ["cuet","1001+","Band 1001+"],["kuet","1001+","Band 1001+"],["bau","1001+","Band 1001+"],
+    ["sust","1001+","Band 1001+"]],
 };
 
 const SEC = {
-  global:{eb:"Global Ranking",t:"Global Top 20 Universities",s:"Ranked by the QS World University Rankings 2026, with their computing-related departments.",note:""},
-  us:{eb:"United States",t:"US Top 20 Universities",s:"The 20 highest-placed US universities in the QS World University Rankings 2026.",note:""},
-  bd:{eb:"Bangladesh",t:"Bangladesh Universities",s:"All Bangladeshi universities ranked in the QS World University Rankings 2026.",
-      note:"QS World 2026 ranks 15 Bangladeshi universities — not 20 — so this tab shows all 15. For a full top-20, the QS Asia University Rankings 2026 includes 46 Bangladeshi institutions."}
+  global:{eb:"Global Ranking",t:"Global Top 20 Universities",s:"Ranked by the QS World University Rankings 2027, with their computing-related departments.",note:""},
+  us:{eb:"United States",t:"US Top 20 Universities",s:"The 20 highest-placed US universities in the QS World University Rankings 2027.",note:""},
+  bd:{eb:"Bangladesh",t:"Bangladesh Universities",s:"All Bangladeshi universities ranked in the QS World University Rankings 2027.",
+      note:"QS World 2027 ranks 13 Bangladeshi universities. For a comprehensive ranking of all Bangladeshi institutions, refer to the QS Asia University Rankings."}
 };
 
 const CATCLASS = {CS:"c-cs",Software:"c-sw",IT:"c-it",Computing:"c-comp",AI:"c-ai","Data Science":"c-ds",related:"c-rel"};
